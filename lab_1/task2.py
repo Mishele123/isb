@@ -21,9 +21,9 @@ def frequency_analysis(path_file: str, path_json: str) -> None:
     write_json(path_json, sorted_freq)
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(description="frequency analis")
     parser.add_argument("text2", help="Path to the text file")
     parser.add_argument("letter_frequency", help="Path to the letter_frequency json")
     args = parser.parse_args()
-
     frequency_analysis(args.text2, args.letter_frequency)
