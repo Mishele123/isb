@@ -21,7 +21,7 @@ def encyption(path_to_text: str, path_to_json: str, path_to_result_file) -> None
     write_file(path_to_result_file, output)
 
 def decription(path_to_text: str, path_to_json: str, path_to_result_file) -> None:
-    """decrypt the proposed text"""
+    """decription the proposed text"""
 
     step = int(read_json(path_to_json)["step"])
     text = read_file(path_to_text).upper()
@@ -33,7 +33,9 @@ def decription(path_to_text: str, path_to_json: str, path_to_result_file) -> Non
             output += ALPHABET[new_position]
         else:
             output += i
+    print(output)
     write_file(path_to_result_file, output)
 
 
 encyption("D:\\allLabs\\isb\\lab_1\\original_text1.txt", "D:\\allLabs\\isb\\lab_1\\encryption_key.json", "D:\\allLabs\\isb\lab_1\\encrypted1.txt")
+decription("D:\\allLabs\\isb\lab_1\\encrypted1.txt", "D:\\allLabs\\isb\\lab_1\\encryption_key.json", "D:\\allLabs\\isb\\lab_1\\decrypted.1txt")
