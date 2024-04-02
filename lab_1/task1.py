@@ -1,7 +1,7 @@
 
-import os
 from work_with_files import *
 import argparse
+
 
 ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -31,12 +31,11 @@ def decription(path_to_text: str, path_to_json: str, path_to_result_file) -> Non
             output += ALPHABET[new_position]
         else:
             output += i
-    print(output)
     write_file(path_to_result_file, output)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Substitution encryption/decryption")
+    parser = argparse.ArgumentParser(description="encryption/decryption")
     parser.add_argument("encryption_key", help="Path to the encryption key file")
     parser.add_argument("original_text", help="Path to the original text")
     parser.add_argument("encrypted_file", help="Path to the encrypted file")
