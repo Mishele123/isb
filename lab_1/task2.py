@@ -1,10 +1,14 @@
-
-
-from work_with_files import *
 import argparse
+from work_with_files import *
+
+
+
 
 def frequency_analysis(path_file: str, path_json: str) -> None:
-    """Performs a frequency analysis of the text and writes it to the dictionary in another file"""
+    """Performs a frequency analysis of the text and writes it to the dictionary in another file
+    parametres:
+        path_to_text: path to file with text to work
+        path_to_json: path to json file with step for encrypt/decrypt"""
     text = read_file(path_file)
     frequencies = {}
     count_chars = len(text)
@@ -20,8 +24,8 @@ def frequency_analysis(path_file: str, path_json: str) -> None:
     sorted_freq = dict(sorted(frequencies.items(), key=lambda x: x[1], reverse=True))
     write_json(path_json, sorted_freq)
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="frequency analis")
     parser.add_argument("text2", help="Path to the text file")
     parser.add_argument("letter_frequency", help="Path to the letter_frequency json")

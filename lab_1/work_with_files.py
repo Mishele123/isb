@@ -1,9 +1,12 @@
-
-
 import json
 
+
+
+
 def read_json(path: str) -> dict:
-    """reading data from json file"""
+    """reading data from json file
+    parametres:
+        path: the path to the file where the text is located"""
 
     try:
         with open(path, "r", encoding="utf-8") as file:
@@ -16,7 +19,9 @@ def read_json(path: str) -> dict:
 
 
 def read_file(path: str) -> str:
-    """"this function read text from path file"""
+    """"this function read text from path file
+    parametres:
+        path: the path to the file where the text is located"""
 
     try:
         with open(path, "r", encoding="utf-8") as file:
@@ -27,8 +32,13 @@ def read_file(path: str) -> str:
     except Exception as ex:
         print(f"error with reading file {str(ex)}")
 
+
 def write_file(path: str, data: str) -> None:
-    """write data str in path file"""
+    """write data str in path file
+    parametres:
+        path: the path to the file where the text should be written
+        data: text for writting
+    """
 
     try:
         with open(path, "w", encoding="utf-8") as file:
@@ -39,7 +49,10 @@ def write_file(path: str, data: str) -> None:
 
 
 def write_json(path: str, data: dict) -> None:
-    """write data dict in path json file"""
+    """write data dict in path json file
+    parametres:
+        path: the path to the json file where the text should be written
+        data: dict for writing"""
 
     try:
         with open(path, "w", encoding="utf-8") as file:
