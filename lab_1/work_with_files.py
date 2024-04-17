@@ -1,8 +1,6 @@
 import json
 
 
-
-
 def read_json(path: str) -> dict:
     """reading data from json file
     parametres:
@@ -13,7 +11,7 @@ def read_json(path: str) -> dict:
             s = json.load(file)
         return s
     except FileNotFoundError:
-        print("File not found")
+        print(f"File not found {str(FileNotFoundError)}")
     except Exception as ex:
         print(f"error with reading file {str(ex)}")
 
@@ -28,7 +26,7 @@ def read_file(path: str) -> str:
             s = file.read()
         return s
     except FileNotFoundError:
-        print("File not found")
+        print(f"File not found {str(FileNotFoundError)}")
     except Exception as ex:
         print(f"error with reading file {str(ex)}")
 
@@ -43,7 +41,8 @@ def write_file(path: str, data: str) -> None:
     try:
         with open(path, "w", encoding="utf-8") as file:
             file.write(data)
-
+    except FileNotFoundError:
+        print(f"File not found {str(FileNotFoundError)}")
     except Exception as ex:
         print(f"error with writing file {str(ex)}")
 
@@ -58,5 +57,7 @@ def write_json(path: str, data: dict) -> None:
         with open(path, "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii = False, indent = 1)
             print("Data written in file")
+    except FileNotFoundError:
+        print(f"File not found {str(FileNotFoundError)}")
     except Exception as ex:
         print(f"error with writing file {str(ex)}")

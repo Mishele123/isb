@@ -2,8 +2,6 @@ import argparse
 from work_with_files import *
 
 
-
-
 def frequency_analysis(path_file: str, path_json: str) -> None:
     """Performs a frequency analysis of the text and writes it to the dictionary in another file
     parametres:
