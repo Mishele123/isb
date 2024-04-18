@@ -1,0 +1,9 @@
+NIST TEST RESULTS:
+for c++:
+Frequency bit test = 0.7236736098317631
+Identical bits test = 0.1536792690890508
+Sequence of units test = 0.5638895699382525
+for java:
+Frequency bit test = 0.8596837951986662
+Identical bits test = 0.7256806886581656
+Sequence of units test = 0.539841784134973
