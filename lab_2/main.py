@@ -5,6 +5,19 @@ import re
 import scipy
 
 
+def work_with_json_file(path: str) -> tuple:
+    """Function get c++ \ java secuences \ path to result file from json file
+    parameters:
+    path: path to json file
+    return: (cpp_row, java_row, path_to_result)"""
+    try:
+        with open(path, "r", encoding="utf-8") as file:
+            json_data = json.load(file)
+            return (json_data["c++"], json_data["java"], json_data["path_ro_result"])
+    except Exception as ex:
+        print(f"Error with file: {str(ex)}")
+
+
 def frequency_bit_test(bits_sequence: str) -> float:
     """Frequence bit test
     PARAMETERS:
@@ -26,3 +39,15 @@ def frequency_bit_test(bits_sequence: str) -> float:
         return P
     except Exception as ex:
         print(f"Error : {str(ex)}")
+
+
+if __name__ == "__main__":
+    try:
+        parser = argparse.ArgumentParser(description="Argument parser")
+        parser.add_argument("random_bits_json", help="Path to json file with sequences")
+        args = parser.parse_args()
+
+        cpp_row, java_row, path_ro_res_file = work_with_json_file(args.random_bits_json)
+
+    except Exception as ex:
+        print(f"Error: {str(ex)}")
