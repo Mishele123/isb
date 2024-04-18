@@ -1,8 +1,13 @@
 import json
 import argparse
 import math
+import re
+import scipy
 
 from typing import Tuple
+
+
+PI = [0.2148, 0.3672, 0.2305, 0.1875]
 
 
 def work_with_json_file(path: str) -> Tuple[str, str, str]:
@@ -67,6 +72,46 @@ def test_same_bits(bits_sequence: str) -> float:
         print(f"Error : {str(ex)}")
 
 
+def units_test(bits_sequence: str) -> float:
+    """checking the long sequence of 1 in a block
+    PARAMETERS:
+    bits_sequence - secuence to be processed
+    return:
+    The value of the P value
+    """
+    try:
+        divided_bits_sequence = re.findall(r'.{%s}' % 8, bits_sequence)
+        v1 = v2 = v3 = v4 = 0
+        for sec in divided_bits_sequence:
+            count = 0
+            max_count = 0
+            for i in sec:
+                if i == "1":
+                    count += 1
+                else:
+                    max_count = max(count, max_count)
+                    count = 0
+            match max_count:
+                case 0:
+                    v1 += 1
+                case 1:
+                    v1 += 1
+                case 2:
+                    v2 += 1
+                case 3:
+                    v3 += 1
+                case _:
+                    v4 += 1
+        v = [v1, v2, v3, v4]
+        x_scuare = 0
+        for i in range(0, 3 + 1):
+            x_scuare += (pow(v[i] - 16 * PI[i], 2)) / (16 * PI[i])
+        P = scipy.special.gammainc(3 / 2, x_scuare / 2)
+        return P
+    except Exception as ex:
+        print(f"Error : {str(ex)}")
+
+
 if __name__ == "__main__":
     try:
         parser = argparse.ArgumentParser(description="Parse Arguments")
@@ -77,5 +122,6 @@ if __name__ == "__main__":
         print(cpp_row)
         print(frequency_bit_test(cpp_row))
         print(test_same_bits(cpp_row))
+        print(units_test(cpp_row))
     except Exception as ex:
         print(f"Error: {str(ex)}")
