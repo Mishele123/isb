@@ -40,6 +40,33 @@ def frequency_bit_test(bits_sequence: str) -> float:
         print(f"Error : {str(ex)}")
 
 
+def test_same_bits(bits_sequence: str) -> float:
+    """Same bit test
+    PARAMETERS:
+    bits_sequence - secuence to be processed
+    return:
+    The value of the P value
+    """
+    try:
+        N = len(bits_sequence)
+        count_1 = bits_sequence.count("1")
+        C = (1 / N) * count_1
+        V = 0
+        if abs(C - 1 / 2) < (2 / math.sqrt(N)):
+            V = 0
+            for i in range(0, N - 1):
+                if (bits_sequence[i] != bits_sequence[i + 1]):
+                    V += 1
+
+            P = math.erfc((abs(V - 2 * N * C * (1 - C))) / (2 * math.sqrt(2 * N) * C * (1 - C)))  
+            return P
+        else:
+            P = 0
+        return P
+    except Exception as ex:
+        print(f"Error : {str(ex)}")
+
+
 if __name__ == "__main__":
     try:
         parser = argparse.ArgumentParser(description="Parse Arguments")
@@ -49,5 +76,6 @@ if __name__ == "__main__":
         cpp_row, java_row, path_ro_res_file = work_with_json_file(args.random_bits_json)
         print(cpp_row)
         print(frequency_bit_test(cpp_row))
+        print(test_same_bits(cpp_row))
     except Exception as ex:
         print(f"Error: {str(ex)}")
