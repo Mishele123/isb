@@ -89,8 +89,8 @@ def units_test(bits_sequence: str) -> float:
                 if i == "1":
                     count += 1
                 else:
-                    max_count = max(count, max_count)
                     count = 0
+                max_count = max(count, max_count)
             match max_count:
                 case 0:
                     v1 += 1
@@ -103,10 +103,10 @@ def units_test(bits_sequence: str) -> float:
                 case _:
                     v4 += 1
         v = [v1, v2, v3, v4]
-        x_scuare = 0
-        for i in range(0, 3 + 1):
-            x_scuare += (pow(v[i] - 16 * PI[i], 2)) / (16 * PI[i])
-        P = scipy.special.gammainc(3 / 2, x_scuare / 2)
+        x_square = 0
+        for i in range(4):
+            x_square += (pow(v[i] - 16 * PI[i], 2)) / (16 * PI[i])
+        P = scipy.special.gammainc(3 / 2,  x_square / 2)
         return P
     except Exception as ex:
         print(f"Error : {str(ex)}")
@@ -119,9 +119,13 @@ if __name__ == "__main__":
         args = parser.parse_args()
         print(args.random_bits_json)
         cpp_row, java_row, path_ro_res_file = work_with_json_file(args.random_bits_json)
-        print(cpp_row)
+        print("for c++:")
         print(frequency_bit_test(cpp_row))
         print(test_same_bits(cpp_row))
         print(units_test(cpp_row))
+        print("for java:")
+        print(frequency_bit_test(java_row))
+        print(test_same_bits(java_row))
+        print(units_test(java_row))
     except Exception as ex:
         print(f"Error: {str(ex)}")
