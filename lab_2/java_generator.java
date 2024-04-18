@@ -1,5 +1,10 @@
 import java.util.Random;
 
+
+/**
+* A class for generating random bits.
+*/
+
 public class RandomBitGenerator 
 {
     private static final int MAXSIZE = 128;
@@ -12,6 +17,7 @@ public class RandomBitGenerator
 
     public static void main(String[] args) 
     {
+        /* Creating a random bit generator object */    
         RandomBitGenerator generator = new RandomBitGenerator();
         generator.generateRandomBits();
     }

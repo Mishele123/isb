@@ -3,7 +3,9 @@
 #include <ctime>
 
 
-
+/**
+ * This program code generates random bits and outputs them.
+ */
 int main() 
 {
     srand(time(nullptr));
