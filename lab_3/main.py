@@ -2,7 +2,7 @@ import argparse
 import json
 import os
 
-from work_with_crypt import generate_keys, encrypt_datafile
+from work_with_crypt import generate_keys, encrypt_datafile, decrypt_file
 
 
 if __name__ == "__main__":
@@ -25,5 +25,5 @@ if __name__ == "__main__":
         encrypt_datafile(settings['initial_file'], settings['private_key'], settings['symmetric_key'], settings['encrypted_file'])
         # шифруем
     else:
-        pass
+        decrypt_file(settings['encrypted_file'], settings['private_key'], settings['symmetric_key'], settings['decrypted_file'])
         # дешифруем
