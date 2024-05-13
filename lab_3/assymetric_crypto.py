@@ -1,5 +1,6 @@
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding as asymmetric_padding
 
 
 def generate_key_pair():
@@ -29,4 +30,23 @@ def encrypt_symmetric_key(rsa_key, symmetric_key):
                                                 algorithm=hashes.SHA256(), label=None))
         return encrypted_key                                                                      
     except Exception as ex:
-        raise Exception(f"Error: {ex}")
+        print(f"Error: {ex}")
+
+
+def decrypt_symmetric_key(rsa_key, encrypted_symmetric_key):
+    """
+    decrypts encrypted symmetric key using rsa decryption.
+    args:
+        rsa_key (RSAPrivateKey): rsa key using for decryption.
+        encrypted_symmetric_key (bytes): encrypted symmetric key for decryption.
+    return:
+        The decrypted symmetric key (bytes)
+    """
+    try:
+        return rsa_key.decrypt(encrypted_symmetric_key, asymmetric_padding.OAEP(
+            mgf=asymmetric_padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        ))
+    except Exception as ex:
+        print(f"Error: {ex}")
