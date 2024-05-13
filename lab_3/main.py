@@ -2,7 +2,7 @@ import argparse
 import json
 import os
 
-# Что то вызвать
+from work_with_crypt import generate_keys, encrypt_datafile
 
 
 if __name__ == "__main__":
@@ -19,10 +19,10 @@ if __name__ == "__main__":
         print(f"Error with open json file: {ex}")
     args = parser.parse_args()
     if args.generation is not None:
-        pass
+        generate_keys(settings['private_key'], settings['public_key'], settings['symmetric_key'])
         # генерируем ключи
     elif args.encryption is not None:
-        pass
+        encrypt_datafile(settings['initial_file'], settings['private_key'], settings['symmetric_key'], settings['encrypted_file'])
         # шифруем
     else:
         pass
