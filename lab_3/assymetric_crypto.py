@@ -10,4 +10,4 @@ def generate_key_pair():
     try:
         return rsa.generate_private_key(public_exponent=65537, key_size=2048)
     except Exception as ex:
-        raise Exception(f"ERROR!!{ex}")
+        raise Exception(f"Error{ex}")
