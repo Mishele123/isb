@@ -25,7 +25,7 @@ def encrypt_symmetric_key(rsa_key, symmetric_key):
         encrypted symmetric key (bytes) 
     """
     try:
-        encrypted_key = rsa_key.public_key().encrypt(symmetric_key, 
+        encrypted_key = rsa_key.public_key().encrypt(symmetric_key,
                                 padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()), 
                                                 algorithm=hashes.SHA256(), label=None))
         return encrypted_key                                                                      
