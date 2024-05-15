@@ -11,18 +11,18 @@ if __name__ == "__main__":
     parser.add_argument('-j',
                        '--json_file_path', 
                        type= str, 
-                       default= os.path.join("datas", "settings.json"), 
+                       default= os.path.join("settings.json"), 
                        help= 'Path to json file for custom settings')
     group.add_argument('-gen','--generation',help='Run key generation mode')
     group.add_argument('-enc','--encryption',help='Run encryption mode')
     group.add_argument('-dec','--decryption',help='Run decryption mode')
-    SETTINGS_FILE = os.path.join("datas", "settings.json")
+    args = parser.parse_args()
+    SETTINGS_FILE = os.path.join("datas", args.json_file_path)
     try:
         with open(SETTINGS_FILE) as json_file:
             settings = json.load(json_file)
     except Exception as ex:
         print(f"Error with open json file: {ex}")
-    args = parser.parse_args()
     if args.generation is not None:
         generate_keys(settings['private_key'], settings['public_key'], settings['symmetric_key'])
         # генерируем ключи
