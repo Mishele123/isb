@@ -8,6 +8,11 @@ from work_with_crypt import generate_keys, encrypt_datafile, decrypt_file
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required = True)
+    parser.add_argument('-j',
+                       '--json_file_path', 
+                       type= str, 
+                       default= os.path.join("datas", "settings.json"), 
+                       help= 'Path to json file for custom settings')
     group.add_argument('-gen','--generation',help='Run key generation mode')
     group.add_argument('-enc','--encryption',help='Run encryption mode')
     group.add_argument('-dec','--decryption',help='Run decryption mode')

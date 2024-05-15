@@ -36,19 +36,14 @@ def encrypt_datafile(sourse_file_path, private_key_path, symmetric_key_path, enc
         encrypted_file_path (str): path to save encrypt data file
     """
     try:
-        with open(private_key_path, "rb") as file:
-            private_key_bytes = file.read()
+        private_key_bytes = read_data_from_file(private_key_path)
         private_key = load_private_key(private_key_bytes)
-        with open(symmetric_key_path, "rb") as file:
-            symmetric_key = file.read()
+        symmetric_key = read_data_from_file(symmetric_key_path)
         encrypted_symmetric_key = encrypt_symmetric_key(private_key, symmetric_key)
-        with open(symmetric_key_path, "wb") as file:
-            file.write(encrypted_symmetric_key)
-        with open(sourse_file_path, "rb") as file_from:
-            with open(encrypted_file_path, "wb") as file_to:
-                text = file_from.read()
-                encrypted_text = encrypt_data(symmetric_key, text)
-                file_to.write(encrypted_text)
+        write_data_in_file(symmetric_key_path, encrypted_symmetric_key)
+        text = read_data_from_file(sourse_file_path)
+        encrypted_text = encrypt_data(symmetric_key, text)
+        write_data_in_file(encrypted_file_path, encrypted_text)
     except Exception as ex:
         print(f"Error: {ex}")
 
@@ -63,20 +58,21 @@ def decrypt_file(encrypted_file_path, private_key_path, symmetric_key_path, decr
         decrypted_file_path (str): path to save decrypted data file
     """
     try:
-        with open(private_key_path, "rb") as file:
-            private_key_bytes = file.read()
+        private_key_bytes = read_data_from_file(private_key_path)
         private_key = load_private_key(private_key_bytes)
-        with open(symmetric_key_path, "rb") as file:
-            encrypted_symmetric_key = file.read()
+        encrypted_symmetric_key = read_data_from_file(symmetric_key_path)
         symmetric_key = decrypt_symmetric_key(private_key, encrypted_symmetric_key)
-        with open(encrypted_file_path, "rb") as file_from:
-            with open(decrypted_file_path, "wb") as file_to:
-                iv = file_from.read(16)
-                cipher = Cipher(algorithms.ChaCha20(symmetric_key, iv), mode=None)
-                decryptor = cipher.decryptor()
-                while chunk := file_from.read(128):
-                    decrypted_chunk = decryptor.update(chunk)
-                    file_to.write(decrypted_chunk)
-                file_to.write(decryptor.finalize())
+        data = read_data_from_file(encrypted_file_path)
+        iv = data[:16]
+        cipher = Cipher(algorithms.ChaCha20(symmetric_key, iv), mode=None)
+        decryptor = cipher.decryptor()
+        encrypted_data = data[16:]
+        decrypted_data = b""
+        while chunk := encrypted_data[:128]:
+            encrypted_data = encrypted_data[128:]
+            decrypted_chunk = decryptor.update(chunk)
+            decrypted_data += decrypted_chunk
+        decrypted_data += decryptor.finalize()
+        write_data_in_file(decrypted_file_path, decrypted_data)
     except Exception as ex:
         print(f"Error: {ex}")
